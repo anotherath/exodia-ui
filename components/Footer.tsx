@@ -87,7 +87,18 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-muted-foreground uppercase tracking-[0.2em]">
-          <p>© 2024 EXODIA INFRASTRUCTURE. ALL RIGHTS RESERVED.</p>
+          <p>
+            © 2026 EXODIA INFRASTRUCTURE — build by{" "}
+            <a
+              href="https://github.com/anotherath"
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" hover:text-yellow-400 transition-colors cursor-pointer"
+            >
+              anotherath
+            </a>
+            . ALL RIGHTS RESERVED.
+          </p>
           <div className="flex gap-8">
             <Link
               href="#"

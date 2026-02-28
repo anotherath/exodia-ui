@@ -6,7 +6,17 @@ export default function Hero() {
     <section className="relative pt-24 pb-32 overflow-hidden border-b border-white/5">
       <div className="container relative z-10">
         <div className="max-w-3xl">
-          <HeroBadge>Next-Gen Trading Infrastructure</HeroBadge>
+          <HeroBadge>
+            Build By{" "}
+            <a
+              href="https://github.com/anotherath"
+              target="_blank"
+              rel="noopener noreferrer"
+              className=" hover:no-underline cursor-pointer"
+            >
+              anotherath
+            </a>
+          </HeroBadge>
 
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-foreground mb-8 leading-[0.9]">
             HYBRID TRADING <br />
