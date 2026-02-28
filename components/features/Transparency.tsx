@@ -50,7 +50,7 @@ export default function Transparency() {
             </div>
 
             <div className="flex-none flex flex-col gap-5 w-full lg:w-auto">
-              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-white/5 active:scale-95 active:opacity-80 py-2 rounded-none border-white/10 uppercase font-bold text-xs tracking-widest h-14 px-8 group cursor-pointer">
+              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 active:scale-95 active:opacity-80 py-2 rounded-none border-white/10 uppercase font-bold text-xs tracking-widest h-14 px-8 group cursor-pointer transition-all shadow-sm hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.15)]">
                 Verify State Roots
                 <ArrowUpRight
                   size={16}
@@ -58,7 +58,7 @@ export default function Transparency() {
                 />
               </button>
 
-              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-white/5 active:scale-95 active:opacity-80 py-2 rounded-none border-white/10 uppercase font-bold text-xs tracking-widest h-14 px-8 group cursor-pointer">
+              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 active:scale-95 active:opacity-80 py-2 rounded-none border-white/10 uppercase font-bold text-xs tracking-widest h-14 px-8 group cursor-pointer transition-all shadow-sm hover:shadow-[0_0_20px_rgba(var(--primary-rgb),0.15)]">
                 View Contract
                 <ArrowUpRight
                   size={16}

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ConnectWallet from "./ConnectWallet";
 
 export default function Header() {
   const pathname = usePathname();
@@ -46,9 +47,7 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-background py-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground active:scale-95 active:opacity-80 text-xs uppercase tracking-widest font-bold h-9 px-4 rounded-none border cursor-pointer">
-            Connect Wallet
-          </button>
+          <ConnectWallet />
         </div>
       </div>
     </header>

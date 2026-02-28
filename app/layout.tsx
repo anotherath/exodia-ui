@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Web3Provider } from "@/components/providers/Web3Provider";
 
 export default function RootLayout({
   children,
@@ -28,9 +29,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`min-h-screen flex flex-col font-sans`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <Web3Provider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </Web3Provider>
       </body>
     </html>
   );
