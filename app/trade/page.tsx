@@ -16,7 +16,7 @@ export default function TradePage() {
       {/* Main Terminal Body */}
       <div className="flex-1 w-full ">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="flex flex-col lg:flex-row border-x border-t border-white/5 min-h-[900px] mb-24">
+          <div className="flex flex-col lg:flex-row border-x border-t border-white/5 mb-24">
             {/* Main Content Area (Left/Middle) */}
             <div className="flex-1 flex flex-col min-w-0 ">
               {/* Chart Section */}

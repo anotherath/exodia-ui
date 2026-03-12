@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { ArrowDownLeft, ArrowUpRight, ArrowRightLeft } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export function PortfolioHeader() {
   return (
@@ -12,15 +14,24 @@ export function PortfolioHeader() {
         </p>
       </div>
       <div className="flex items-center gap-3">
-        <button className="inline-flex cursor-pointer items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background text-muted-foreground hover:text-primary py-2 rounded-none border-white/10 hover:border-primary/50 hover:bg-primary/5 text-xs font-bold uppercase tracking-widest h-10 px-5 active:scale-95 active:opacity-80 transition-all gap-2 shadow-sm hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.1)]">
+        <Link
+          href="/portfolio/deposit"
+          className={buttonVariants({ variant: "outline" })}
+        >
           <ArrowDownLeft className="w-3.5 h-3.5" /> Deposit
-        </button>
-        <button className="inline-flex cursor-pointer items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border bg-background text-muted-foreground hover:text-primary py-2 rounded-none border-white/10 hover:border-primary/50 hover:bg-primary/5 text-xs font-bold uppercase tracking-widest h-10 px-5 active:scale-95 active:opacity-80 transition-all gap-2 shadow-sm hover:shadow-[0_0_15px_rgba(var(--primary-rgb),0.1)]">
+        </Link>
+        <Link
+          href="/portfolio/withdraw"
+          className={buttonVariants({ variant: "outline" })}
+        >
           <ArrowUpRight className="w-3.5 h-3.5" /> Withdraw
-        </button>
-        <button className="inline-flex cursor-pointer items-center justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 py-2 rounded-none px-6 font-bold uppercase tracking-widest h-10 border border-primary bg-primary text-primary-foreground hover:bg-primary/90 active:scale-95 active:opacity-80 transition-all gap-2 text-xs">
+        </Link>
+        <Link
+          href="/portfolio/transfer"
+          className={buttonVariants({ variant: "default" })}
+        >
           <ArrowRightLeft className="w-3.5 h-3.5" /> Transfer
-        </button>
+        </Link>
       </div>
     </div>
   );

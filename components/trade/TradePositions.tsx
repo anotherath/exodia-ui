@@ -3,13 +3,15 @@
 import { useState } from "react";
 import { Zap, Lock } from "lucide-react";
 import TerminalTab from "./TerminalTab";
+import { EmptyState } from "@/components/ui/empty-state";
+import { ActivePositionsTable, PositionRecord } from "./ActivePositionsTable";
 
 export default function TradePositions() {
   const [activeTab, setActiveTab] = useState<"positions" | "pending" | "logs">(
     "positions",
   );
 
-  const positions = [
+  const positions: PositionRecord[] = [
     {
       pair: "BTCUSDT",
       side: "LONG 20x",
@@ -24,17 +26,117 @@ export default function TradePositions() {
       pair: "ETHUSDT",
       side: "SHORT 10x",
       entry: "2,510.50",
-      market: "2,490.12",
+      market: "2,485.12",
       size: "800.00",
-      pnl: "+$12.20",
-      pnlPercent: "1.5%",
+      pnl: "+$8.12",
+      pnlPercent: "1.02%",
       isPositive: true,
+    },
+    {
+      pair: "SOLUSDT",
+      side: "LONG 15x",
+      entry: "142.25",
+      market: "138.40",
+      size: "500.00",
+      pnl: "-$13.55",
+      pnlPercent: "-2.71%",
+      isPositive: false,
+    },
+    {
+      pair: "BNBUSDT",
+      side: "LONG 10x",
+      entry: "585.10",
+      market: "592.30",
+      size: "1,200.00",
+      pnl: "+$14.80",
+      pnlPercent: "1.23%",
+      isPositive: true,
+    },
+    {
+      pair: "XRPUSDT",
+      side: "SHORT 5x",
+      entry: "0.5210",
+      market: "0.5340",
+      size: "2,000.00",
+      pnl: "-$25.00",
+      pnlPercent: "-1.25%",
+      isPositive: false,
+    },
+    {
+      pair: "ADAUSDT",
+      side: "LONG 8x",
+      entry: "0.4520",
+      market: "0.4580",
+      size: "400.00",
+      pnl: "+$5.30",
+      pnlPercent: "1.32%",
+      isPositive: true,
+    },
+    {
+      pair: "DOTUSDT",
+      side: "SHORT 12x",
+      entry: "7.125",
+      market: "6.950",
+      size: "600.00",
+      pnl: "+$14.75",
+      pnlPercent: "2.45%",
+      isPositive: true,
+    },
+    {
+      pair: "AVAXUSDT",
+      side: "LONG 25x",
+      entry: "35.20",
+      market: "36.85",
+      size: "1,000.00",
+      pnl: "+$46.80",
+      pnlPercent: "4.68%",
+      isPositive: true,
+    },
+    {
+      pair: "LINKUSDT",
+      side: "LONG 10x",
+      entry: "14.15",
+      market: "13.90",
+      size: "300.00",
+      pnl: "-$5.30",
+      pnlPercent: "-1.76%",
+      isPositive: false,
+    },
+    {
+      pair: "MATICUSDT",
+      side: "SHORT 20x",
+      entry: "0.6850",
+      market: "0.6720",
+      size: "900.00",
+      pnl: "+$17.10",
+      pnlPercent: "1.90%",
+      isPositive: true,
+    },
+    {
+      pair: "NEARUSDT",
+      side: "LONG 15x",
+      entry: "5.450",
+      market: "5.620",
+      size: "750.00",
+      pnl: "+$23.35",
+      pnlPercent: "3.11%",
+      isPositive: true,
+    },
+    {
+      pair: "ARBUSDT",
+      side: "SHORT 10x",
+      entry: "1.050",
+      market: "1.085",
+      size: "1,100.00",
+      pnl: "-$36.65",
+      pnlPercent: "-3.33%",
+      isPositive: false,
     },
   ];
 
   return (
-    <div className="flex-1 min-h-[400px] flex flex-col ">
-      <div className="w-full h-full flex flex-col">
+    <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
+      <div className="w-full h-full flex flex-col min-h-0">
         {/* Tab Header */}
         <div className="px-8 border-b border-white/5   flex items-center justify-between">
           <div className="flex items-center gap-12 h-16">
@@ -64,90 +166,16 @@ export default function TradePositions() {
         </div>
 
         {/* Content Area */}
-        <div className="flex-1 overflow-auto no-scrollbar flex flex-col">
+        <div className="flex-1 overflow-auto no-scrollbar flex flex-col min-h-0">
           {activeTab === "positions" ? (
-            <table className="w-full text-left border-collapse ">
-              <thead>
-                <tr className="border-b border-white/5 bg-white/2">
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap">
-                    Pair
-                  </th>
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap">
-                    Side
-                  </th>
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap">
-                    Entry_Price
-                  </th>
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap">
-                    Market_Price
-                  </th>
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap">
-                    Size
-                  </th>
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap">
-                    Unrealized_PnL
-                  </th>
-                  <th className="px-4 py-5 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground opacity-80 whitespace-nowrap text-right">
-                    Action
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="text-xs font-mono">
-                {positions.map((pos, idx) => (
-                  <tr
-                    key={idx}
-                    className="border-b border-white/5 hover:bg-white/2 transition-colors group"
-                  >
-                    <td className="px-4 py-5 font-bold tracking-tighter text-sm whitespace-nowrap">
-                      {pos.pair}
-                    </td>
-                    <td className="px-4 py-5 whitespace-nowrap">
-                      <span
-                        className={`font-bold px-3 py-1 border text-xs ${pos.isPositive ? "border-green-500/20 bg-green-500/5 text-green-500" : "border-red-500/20 bg-red-500/5 text-red-500"}`}
-                      >
-                        {pos.side}
-                      </span>
-                    </td>
-                    <td className="px-4 py-5 text-muted-foreground text-sm whitespace-nowrap">
-                      {pos.entry}
-                    </td>
-                    <td className="px-4 py-5 text-sm whitespace-nowrap">
-                      {pos.market}
-                    </td>
-                    <td className="px-4 py-5 text-sm whitespace-nowrap">
-                      {pos.size}{" "}
-                      <span className="text-xs text-muted-foreground">
-                        USDT
-                      </span>
-                    </td>
-                    <td className="px-4 py-5 whitespace-nowrap">
-                      <div className="flex flex-col">
-                        <span
-                          className={`font-bold text-sm ${pos.isPositive ? "text-green-500" : "text-red-500"}`}
-                        >
-                          {pos.pnl}
-                        </span>
-                        <span className="text-xs text-muted-foreground opacity-70">
-                          ({pos.pnlPercent})
-                        </span>
-                      </div>
-                    </td>
-                    <td className="px-4 py-5 text-right whitespace-nowrap">
-                      <button className="text-xs font-bold uppercase tracking-widest text-primary hover:text-primary-foreground hover:bg-primary transition-all border border-primary/20 bg-primary/5 px-4 py-1.5 cursor-pointer active:scale-95">
-                        Close_Node
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <ActivePositionsTable records={positions} />
           ) : (
-            <div className="flex-1 flex flex-col items-center justify-center py-32 text-muted-foreground bg-black/20">
-              <Lock className="w-12 h-12 mb-8 opacity-10" />
-              <p className="text-xs font-bold uppercase tracking-[0.3em] opacity-40">
-                {activeTab === "pending" ? "Queue_Empty" : "No_Logs_Found"}
-              </p>
-            </div>
+            <EmptyState
+              message={
+                activeTab === "pending" ? "Queue_Empty" : "No_Logs_Found"
+              }
+              className="flex-1 py-32"
+            />
           )}
         </div>
       </div>

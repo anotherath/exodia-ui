@@ -4,6 +4,7 @@ import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { Wallet, Loader2 } from "lucide-react";
 import React from "react";
+import { Button } from "@/components/ui/button";
 
 interface WalletGuardProps {
   children: React.ReactNode;
@@ -39,13 +40,15 @@ export function WalletGuard({ children }: WalletGuardProps) {
           Please establish a secure connection to your Web3 wallet to access
           your portfolio nodes.
         </p>
-        <button
+        <Button
           onClick={openConnectModal}
           type="button"
-          className="inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 bg-background py-2 border border-primary text-primary hover:bg-primary hover:text-primary-foreground text-xs uppercase tracking-wider font-bold h-9 px-4 rounded-none active:scale-95 active:opacity-80 transition-all"
+          variant="outline"
+          size="sm"
+          className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
         >
           Connect Wallet
-        </button>
+        </Button>
       </div>
     );
   }

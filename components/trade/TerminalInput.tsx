@@ -1,5 +1,7 @@
 "use client";
 
+import { Input } from "@/components/ui/input";
+
 interface TerminalInputProps {
   label?: string;
   suffix?: string;
@@ -36,13 +38,11 @@ export default function TerminalInput({
         </div>
       )}
       <div className="relative">
-        <input
+        <Input
           type={type}
           value={value}
           onChange={onChange}
-          className={`flex w-full border px-3 py-2 md:text-sm rounded-none bg-gray/5 border-white/10 h-14 font-mono text-sm focus-visible:outline-none focus-visible:border-primary/60 focus-visible:bg-gray/5 focus-visible:shadow-[0_0_20px_-10px_rgba(var(--primary),0.5)] transition-all ${
-            suffix ? "pr-20" : ""
-          } ${className}`}
+          className={`${suffix ? "pr-20" : ""} ${className}`}
           placeholder={placeholder}
         />
         {suffix && (

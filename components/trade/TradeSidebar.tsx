@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { Zap, Lock, Briefcase } from "lucide-react";
 import TerminalTab from "./TerminalTab";
 import TerminalInput from "./TerminalInput";
+import { Button } from "@/components/ui/button";
 
 export default function TradeSidebar() {
   const [side, setSide] = useState<"long" | "short">("long");
@@ -52,7 +53,7 @@ export default function TradeSidebar() {
   };
 
   return (
-    <div className="w-full lg:w-[400px] lg:flex-none flex flex-col backdrop-blur-sm no-scrollbar border-l border-white/5 bg-black/40 shrink-0">
+    <div className="w-full lg:w-[400px] lg:flex-none flex flex-col backdrop-blur-sm no-scrollbar border-l border-white/5 bg-black/40 shrink-0 h-fit">
       {/* Order Form */}
       <div className="p-8 space-y-10">
         <div className="flex gap-px bg-white/5 border border-white/10 p-1">
@@ -109,9 +110,9 @@ export default function TradeSidebar() {
                 suffix="USDT"
                 placeholder="0.00"
                 action={
-                  <span className="text-xs font-bold text-primary cursor-pointer hover:underline active:opacity-80 active:scale-95 transition-all inline-block">
+                  <Button variant="link" size="link">
                     MAX_AVAIL
-                  </span>
+                  </Button>
                 }
               />
 
@@ -205,58 +206,46 @@ export default function TradeSidebar() {
         </div>
 
         <div className="space-y-6">
-          <div className="flex justify-between items-end border-b border-white/5 pb-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80">
-              Total Equity
-            </span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-sm font-mono font-bold text-foreground">
-                25,124.50
+          {[
+            {
+              label: "Trade Balance",
+              value: "15,500,000,000.00",
+              unit: "USDT",
+            },
+            { label: "Total Equity", value: "25,124.50", unit: "USDT" },
+            { label: "Available Margin", value: "10,124.50", unit: "USDT" },
+            {
+              label: "Unrealized PnL",
+              value: "+333.65",
+              unit: "USDT",
+              color: "text-green-500",
+            },
+            {
+              label: "Margin Ratio",
+              value: "1.25",
+              unit: "%",
+              color: "text-primary",
+            },
+          ].map((item, idx) => (
+            <div
+              key={idx}
+              className="flex justify-between items-end border-b border-white/5 pb-3"
+            >
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80 whitespace-nowrap truncate mr-4">
+                {item.label}
               </span>
-              <span className="text-xs font-mono text-muted-foreground uppercase opacity-70">
-                USDT
-              </span>
+              <div className="flex items-baseline min-w-[210px] gap-3">
+                <span
+                  className={`text-sm font-mono font-bold ${item.color || "text-foreground"} w-[155px] text-right shrink-0`}
+                >
+                  {item.value}
+                </span>
+                <span className="text-xs font-mono text-muted-foreground uppercase opacity-70 w-[45px] text-right shrink-0">
+                  {item.unit}
+                </span>
+              </div>
             </div>
-          </div>
-          <div className="flex justify-between items-end border-b border-white/5 pb-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80">
-              Unrealized PnL
-            </span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-sm font-mono font-bold text-green-500">
-                +333.65
-              </span>
-              <span className="text-xs font-mono text-muted-foreground uppercase opacity-70">
-                USDT
-              </span>
-            </div>
-          </div>
-          <div className="flex justify-between items-end border-b border-white/5 pb-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80">
-              Realized PnL
-            </span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-sm font-mono font-bold text-green-500">
-                +1,240.12
-              </span>
-              <span className="text-xs font-mono text-muted-foreground uppercase opacity-70">
-                USDT
-              </span>
-            </div>
-          </div>
-          <div className="flex justify-between items-end border-b border-white/5 pb-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80">
-              Margin Buffer
-            </span>
-            <div className="flex items-baseline gap-1.5">
-              <span className="text-sm font-mono font-bold text-foreground">
-                22,824.50
-              </span>
-              <span className="text-xs font-mono text-muted-foreground uppercase opacity-70">
-                USDT
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>

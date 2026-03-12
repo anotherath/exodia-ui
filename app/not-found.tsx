@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Search, Home, ArrowLeft } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
@@ -29,16 +30,20 @@ export default function NotFound() {
 
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md justify-center">
-          <button
+          <Button
             onClick={() => window.history.back()}
-            className="flex-1 px-8 py-4 border border-white/10 bg-white/5 text-white text-xs font-bold uppercase tracking-widest hover:bg-white/10 transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-3"
+            variant="secondary"
+            className="flex-1 py-4 px-8 text-white hover:bg-white/10"
           >
             <ArrowLeft size={16} />
             Go_Back
-          </button>
+          </Button>
           <Link
             href="/"
-            className="flex-1 px-8 py-4 bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-all cursor-pointer active:scale-95 flex items-center justify-center gap-3"
+            className={buttonVariants({
+              variant: "default",
+              className: "flex-1 py-4 px-8",
+            })}
           >
             <Home size={16} />
             Return_Home
