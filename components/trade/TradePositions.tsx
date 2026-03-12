@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { Zap, Lock } from "lucide-react";
+import { useAccount } from "wagmi";
 import TerminalTab from "./TerminalTab";
 import { EmptyState } from "@/components/ui/empty-state";
 import { ActivePositionsTable, PositionRecord } from "./ActivePositionsTable";
 
 export default function TradePositions() {
+  const { isConnected } = useAccount();
   const [activeTab, setActiveTab] = useState<"positions" | "pending" | "logs">(
     "positions",
   );
 
-  const positions: PositionRecord[] = [
+  const positions: PositionRecord[] = isConnected ? [
     {
       pair: "BTCUSDT",
       side: "LONG 20x",
@@ -132,7 +134,7 @@ export default function TradePositions() {
       pnlPercent: "-3.33%",
       isPositive: false,
     },
-  ];
+  ] : [];
 
   return (
     <div className="flex-1 flex flex-col min-h-0 overflow-hidden">
@@ -168,7 +170,11 @@ export default function TradePositions() {
         {/* Content Area */}
         <div className="flex-1 overflow-auto no-scrollbar flex flex-col min-h-0">
           {activeTab === "positions" ? (
-            <ActivePositionsTable records={positions} />
+            positions.length > 0 ? (
+              <ActivePositionsTable records={positions} />
+            ) : (
+              <EmptyState message="Positions_Empty" className="flex-1 py-32" />
+            )
           ) : (
             <EmptyState
               message={

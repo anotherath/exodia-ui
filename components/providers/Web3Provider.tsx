@@ -7,12 +7,9 @@ import {
   connectorsForWallets,
 } from "@rainbow-me/rainbowkit";
 import {
-  rainbowWallet,
-  walletConnectWallet,
   metaMaskWallet,
   okxWallet,
   phantomWallet,
-  trustWallet,
   coin98Wallet,
   bitgetWallet,
 } from "@rainbow-me/rainbowkit/wallets";
@@ -31,13 +28,11 @@ const connectors = connectorsForWallets(
         metaMaskWallet,
         okxWallet,
         phantomWallet,
-        rainbowWallet,
-        walletConnectWallet,
       ],
     },
     {
       groupName: "Others",
-      wallets: [trustWallet, coin98Wallet, bitgetWallet],
+      wallets: [coin98Wallet, bitgetWallet],
     },
   ],
   {
@@ -55,9 +50,8 @@ const config = createConfig({
   ssr: true,
 });
 
-const queryClient = new QueryClient();
-
 export function Web3Provider({ children }: { children: React.ReactNode }) {
+  const [queryClient] = React.useState(() => new QueryClient());
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>

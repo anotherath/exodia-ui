@@ -55,3 +55,4 @@ export function WalletGuard({ children }: WalletGuardProps) {
 
   return <>{children}</>;
 }
+

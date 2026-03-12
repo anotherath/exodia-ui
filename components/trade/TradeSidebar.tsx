@@ -2,11 +2,15 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Zap, Lock, Briefcase } from "lucide-react";
+import { useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
 import TerminalTab from "./TerminalTab";
 import TerminalInput from "./TerminalInput";
 import { Button } from "@/components/ui/button";
 
 export default function TradeSidebar() {
+  const { isConnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
   const [side, setSide] = useState<"long" | "short">("long");
   const [orderType, setOrderType] = useState<"market" | "limit">("market");
   const [leverage, setLeverage] = useState(20);
@@ -172,24 +176,33 @@ export default function TradeSidebar() {
 
           <div className="pt-8 space-y-5 border-t border-white/5 font-mono">
             <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
-              <span className="text-muted-foreground">Liquidation_Price</span>
-              <span className="text-foreground">58,124.50</span>
+              <span className="text-muted-foreground">Available_To_Trade</span>
+              <span className="text-foreground">{isConnected ? "58,124.50" : "0.00"}</span>
             </div>
             <div className="flex justify-between text-xs font-bold uppercase tracking-widest">
               <span className="text-muted-foreground">Protocol_Fees</span>
-              <span className="text-foreground">0.12 USDT</span>
+              <span className="text-foreground">{isConnected ? "0.12 USDT" : "0.00 USDT"}</span>
             </div>
           </div>
 
-          <button
-            className={`w-full h-18 rounded-none font-bold uppercase tracking-[0.3em] text-xs transition-all border py-6 cursor-pointer active:scale-[0.98] active:brightness-90 ${
-              side === "long"
-                ? "bg-green-600/10 border-green-600/50 text-green-500 hover:bg-green-600 hover:text-white"
-                : "bg-red-600/10 border-red-600/50 text-red-500 hover:bg-red-600 hover:text-white"
-            }`}
-          >
-            Execute_{side === "long" ? "LONG" : "SHORT"}
-          </button>
+          {!isConnected ? (
+            <button
+              onClick={openConnectModal}
+              className="w-full h-18 rounded-none font-bold uppercase tracking-[0.3em] text-xs transition-all border py-6 cursor-pointer active:scale-[0.98] active:brightness-90 bg-primary/10 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground"
+            >
+              Connect_Wallet
+            </button>
+          ) : (
+            <button
+              className={`w-full h-18 rounded-none font-bold uppercase tracking-[0.3em] text-xs transition-all border py-6 cursor-pointer active:scale-[0.98] active:brightness-90 ${
+                side === "long"
+                  ? "bg-green-600/10 border-green-600/50 text-green-500 hover:bg-green-600 hover:text-white"
+                  : "bg-red-600/10 border-red-600/50 text-red-500 hover:bg-red-600 hover:text-white"
+              }`}
+            >
+              Execute_{side === "long" ? "LONG" : "SHORT"}
+            </button>
+          )}
         </div>
       </div>
 
@@ -209,38 +222,38 @@ export default function TradeSidebar() {
           {[
             {
               label: "Trade Balance",
-              value: "15,500,000,000.00",
+              value: isConnected ? "15,500,000,000.00" : "0.00",
               unit: "USDT",
             },
-            { label: "Total Equity", value: "25,124.50", unit: "USDT" },
-            { label: "Available Margin", value: "10,124.50", unit: "USDT" },
+            { label: "Total Equity", value: isConnected ? "25,124.50" : "0.00", unit: "USDT" },
+            { label: "Available Margin", value: isConnected ? "10,124.50" : "0.00", unit: "USDT" },
             {
               label: "Unrealized PnL",
-              value: "+333.65",
+              value: isConnected ? "+333.65" : "0.00",
               unit: "USDT",
-              color: "text-green-500",
+              color: isConnected ? "text-green-500" : "text-foreground",
             },
             {
               label: "Margin Ratio",
-              value: "1.25",
+              value: isConnected ? "1.25" : "0.00",
               unit: "%",
-              color: "text-primary",
+              color: isConnected ? "text-primary" : "text-foreground",
             },
           ].map((item, idx) => (
             <div
               key={idx}
-              className="flex justify-between items-end border-b border-white/5 pb-3"
+              className="flex justify-between items-baseline border-b border-white/5 pb-3 gap-4"
             >
-              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80 whitespace-nowrap truncate mr-4">
+              <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground opacity-80 whitespace-nowrap shrink-0">
                 {item.label}
               </span>
-              <div className="flex items-baseline min-w-[210px] gap-3">
+              <div className="flex flex-1 items-baseline justify-end gap-2 min-w-0">
                 <span
-                  className={`text-sm font-mono font-bold ${item.color || "text-foreground"} w-[155px] text-right shrink-0`}
+                  className={`text-sm font-mono font-bold ${item.color || "text-foreground"} shrink break-all text-right`}
                 >
                   {item.value}
                 </span>
-                <span className="text-xs font-mono text-muted-foreground uppercase opacity-70 w-[45px] text-right shrink-0">
+                <span className="text-xs font-mono text-muted-foreground uppercase opacity-70 shrink-0 w-[45px] text-right">
                   {item.unit}
                 </span>
               </div>
