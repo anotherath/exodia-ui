@@ -6,8 +6,13 @@ import TerminalInput from "@/components/trade/TerminalInput";
 import { Button } from "@/components/ui/button";
 import { SelectableButton } from "@/components/ui/selectable-button";
 import { BackButton } from "@/components/ui/back-button";
+import { useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { WalletGuard } from "@/components/providers/WalletGuard";
 
 export default function TransferPage() {
+  const { isConnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
   return (
     <div className="min-h-screen pb-32">
       <div className="border-b border-white/5 pt-16 pb-12">
@@ -127,9 +132,25 @@ export default function TransferPage() {
             </div>
 
             {/* Submit Button */}
-            <Button variant="default" size="xl" className="w-full">
-              Confirm Transfer
-            </Button>
+            {!isConnected ? (
+              <Button
+                onClick={openConnectModal}
+                type="button"
+                variant="outline"
+                size="xl"
+                className="w-full gap-2 font-bold uppercase tracking-widest text-sm border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+              >
+                Connect Wallet
+              </Button>
+            ) : (
+              <Button
+                variant="default"
+                size="xl"
+                className="w-full gap-2 font-bold uppercase tracking-widest text-sm"
+              >
+                Confirm Transfer
+              </Button>
+            )}
           </div>
         </div>
       </div>

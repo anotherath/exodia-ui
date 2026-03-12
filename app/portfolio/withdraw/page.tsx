@@ -13,8 +13,13 @@ import {
   FundingHistoryTable,
   FundingRecord,
 } from "@/components/portfolio/FundingHistoryTable";
+import { useAccount } from "wagmi";
+import { useConnectModal } from "@rainbow-me/rainbowkit";
+import { WalletGuard } from "@/components/providers/WalletGuard";
 
 export default function WithdrawPage() {
+  const { isConnected } = useAccount();
+  const { openConnectModal } = useConnectModal();
   const [historyTab, setHistoryTab] = useState<
     "all" | "deposits" | "withdrawals"
   >("all");
@@ -124,45 +129,62 @@ export default function WithdrawPage() {
                 </p>
               </div>
 
-              <Button
-                variant="default"
-                size="xl"
-                className="w-full gap-2 font-bold uppercase tracking-widest text-sm"
-              >
-                <ArrowUpRight className="w-4 h-4" /> Confirm Withdrawal
-              </Button>
+              {!isConnected ? (
+                <Button
+                  onClick={openConnectModal}
+                  type="button"
+                  variant="outline"
+                  size="xl"
+                  className="w-full gap-2 font-bold uppercase tracking-widest text-sm border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                >
+                  Connect Wallet
+                </Button>
+              ) : (
+                <Button
+                  variant="default"
+                  size="xl"
+                  className="w-full gap-2 font-bold uppercase tracking-widest text-sm"
+                >
+                  <ArrowUpRight className="w-4 h-4" /> Confirm Withdrawal
+                </Button>
+              )}
             </section>
           </div>
 
           {/* Right Column - Funding History */}
           <div className="lg:col-span-7">
-            <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-                Funding History
-              </h2>
-              <div className="flex gap-4">
-                <TextTab
-                  selected={historyTab === "all"}
-                  onClick={() => setHistoryTab("all")}
-                >
-                  All
-                </TextTab>
-                <TextTab
-                  selected={historyTab === "deposits"}
-                  onClick={() => setHistoryTab("deposits")}
-                >
-                  Deposits
-                </TextTab>
-                <TextTab
-                  selected={historyTab === "withdrawals"}
-                  onClick={() => setHistoryTab("withdrawals")}
-                >
-                  Withdrawals
-                </TextTab>
+            <WalletGuard>
+              <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-4">
+                <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
+                  Funding History
+                </h2>
+                <div className="flex gap-4">
+                  <TextTab
+                    selected={historyTab === "all"}
+                    onClick={() => setHistoryTab("all")}
+                  >
+                    All
+                  </TextTab>
+                  <TextTab
+                    selected={historyTab === "deposits"}
+                    onClick={() => setHistoryTab("deposits")}
+                  >
+                    Deposits
+                  </TextTab>
+                  <TextTab
+                    selected={historyTab === "withdrawals"}
+                    onClick={() => setHistoryTab("withdrawals")}
+                  >
+                    Withdrawals
+                  </TextTab>
+                </div>
               </div>
-            </div>
 
-            <FundingHistoryTable records={records} filterAction={historyTab} />
+              <FundingHistoryTable
+                records={records}
+                filterAction={historyTab}
+              />
+            </WalletGuard>
           </div>
         </div>
       </div>

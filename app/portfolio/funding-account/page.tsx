@@ -24,7 +24,7 @@ export default function FundingAccountPage() {
         <div className="container px-4 md:px-8">
           <BackButton href="/portfolio" label="Return to Assets" />
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+          <div className="flex flex-col md:flex-row md:items-start justify-between gap-8">
             <div>
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-2 h-2 rounded-full bg-current text-primary shadow-[0_0_10px_rgba(var(--primary-rgb),0.5)]"></div>

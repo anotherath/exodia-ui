@@ -1,63 +1,70 @@
+"use client";
+
 import { ChevronRight, ArrowRightLeft, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { EXTERNAL_LINKS } from "@/configs/external-links";
+import { useAccount } from "wagmi";
 
 export function PortfolioSidebar() {
+  const { isConnected } = useAccount();
+
   return (
     <div className="lg:col-span-4 space-y-12">
-      <section>
-        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-8">
-          Trading Accounts
-        </h2>
-        <div className="divide-y divide-white/5">
-          <Link
-            href="/portfolio/trading-account"
-            className="py-6 first:pt-0 flex items-center justify-between group cursor-pointer active:scale-[0.98] active:opacity-80 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-1 h-10 bg-white/5 group-hover:bg-primary transition-colors"></div>
-              <div>
-                <h4 className="text-sm font-bold uppercase text-foreground mb-1">
-                  Trading Account
-                </h4>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase">
-                    FUTURES
-                  </span>
-                  <span className="text-xs text-muted-foreground">•</span>
-                  <span className="text-xs text-primary font-bold uppercase tracking-widest">
-                    $124,500.00
-                  </span>
+      {isConnected && (
+        <section>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-8">
+            Trading Accounts
+          </h2>
+          <div className="divide-y divide-white/5">
+            <Link
+              href="/portfolio/trading-account"
+              className="py-6 first:pt-0 flex items-center justify-between group cursor-pointer active:scale-[0.98] active:opacity-80 transition-all"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-1 h-10 bg-white/5 group-hover:bg-primary transition-colors"></div>
+                <div>
+                  <h4 className="text-sm font-bold uppercase text-foreground mb-1">
+                    Trading Account
+                  </h4>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase">
+                      FUTURES
+                    </span>
+                    <span className="text-xs text-muted-foreground">•</span>
+                    <span className="text-xs text-primary font-bold uppercase tracking-widest">
+                      $124,500.00
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0" />
-          </Link>
-          <Link
-            href="/portfolio/funding-account"
-            className="py-6 first:pt-0 flex items-center justify-between group cursor-pointer active:scale-[0.98] active:opacity-80 transition-all"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-1 h-10 bg-white/5 group-hover:bg-primary transition-colors"></div>
-              <div>
-                <h4 className="text-sm font-bold uppercase text-foreground mb-1">
-                  Funding Account
-                </h4>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase">
-                    SPOT
-                  </span>
-                  <span className="text-xs text-muted-foreground">•</span>
-                  <span className="text-xs text-primary font-bold uppercase tracking-widest">
-                    $18,084.22
-                  </span>
+              <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0" />
+            </Link>
+            <Link
+              href="/portfolio/funding-account"
+              className="py-6 first:pt-0 flex items-center justify-between group cursor-pointer active:scale-[0.98] active:opacity-80 transition-all"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-1 h-10 bg-white/5 group-hover:bg-primary transition-colors"></div>
+                <div>
+                  <h4 className="text-sm font-bold uppercase text-foreground mb-1">
+                    Funding Account
+                  </h4>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase">
+                      SPOT
+                    </span>
+                    <span className="text-xs text-muted-foreground">•</span>
+                    <span className="text-xs text-primary font-bold uppercase tracking-widest">
+                      $18,084.22
+                    </span>
+                  </div>
                 </div>
               </div>
-            </div>
-            <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0" />
-          </Link>
-        </div>
-      </section>
+              <ChevronRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-all transform translate-x-[-10px] group-hover:translate-x-0" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       <section className="pt-8 border-t border-white/5">
         <h3 className="text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4">
