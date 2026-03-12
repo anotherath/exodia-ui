@@ -4,6 +4,7 @@ import { ChevronRight, ArrowRightLeft, CreditCard } from "lucide-react";
 import Link from "next/link";
 import { EXTERNAL_LINKS } from "@/configs/external-links";
 import { useAccount } from "wagmi";
+import { toast } from "sonner";
 
 export function PortfolioSidebar() {
   const { isConnected } = useAccount();
@@ -91,6 +92,53 @@ export function PortfolioSidebar() {
           </a>
         </div>
       </section>
+
+      {/* Static Alerts Showcase */}
+      <div className="pt-8 border-t border-white/5 space-y-4">
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={() =>
+              toast.success("Success", {
+                description: "Your account has been saved.",
+              })
+            }
+            className="w-full flex items-center justify-center gap-2 h-10 border border-green-500/20 bg-green-500/10 hover:bg-green-500/20 hover:border-green-500/30 text-green-500 text-[10px] font-bold uppercase tracking-widest transition-all active:scale-[0.98] cursor-pointer"
+          >
+            Success Toast
+          </button>
+
+          <button
+            onClick={() =>
+              toast.error("Error", {
+                description: "Your email address is invalid.",
+              })
+            }
+            className="w-full flex items-center justify-center gap-2 h-10 border border-red-500/20 bg-red-500/10 hover:bg-red-500/20 hover:border-red-500/30 text-red-500 text-[10px] font-bold uppercase tracking-widest transition-all active:scale-[0.98] cursor-pointer"
+          >
+            Error Toast
+          </button>
+
+          <button
+            onClick={() =>
+              toast.warning("Warning", {
+                description: "You are currently on the Free plan.",
+              })
+            }
+            className="w-full flex items-center justify-center gap-2 h-10 border border-yellow-500/20 bg-yellow-500/10 hover:bg-yellow-500/20 hover:border-yellow-500/30 text-yellow-500 text-[10px] font-bold uppercase tracking-widest transition-all active:scale-[0.98] cursor-pointer"
+          >
+            Warning Toast
+          </button>
+
+          <button
+            onClick={() =>
+              toast.info("Info", { description: "We've updated a few things." })
+            }
+            className="w-full flex items-center justify-center gap-2 h-10 border border-blue-500/20 bg-blue-500/10 hover:bg-blue-500/20 hover:border-blue-500/30 text-blue-500 text-[10px] font-bold uppercase tracking-widest transition-all active:scale-[0.98] cursor-pointer"
+          >
+            Info Toast
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

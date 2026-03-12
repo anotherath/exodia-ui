@@ -1,5 +1,6 @@
 "use client";
 
+import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpDown, Info } from "lucide-react";
 import TerminalInput from "@/components/trade/TerminalInput";
@@ -13,6 +14,28 @@ import { WalletGuard } from "@/components/providers/WalletGuard";
 export default function TransferPage() {
   const { isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
+  const [isSwapped, setIsSwapped] = useState(false);
+
+  // Define account details to easily swap them
+  const fundingAccount = {
+    title: "Funding Account",
+    subtitle: "SPOT ACCOUNT",
+    balanceLabel: "Available Balance",
+    balance: "$18,084.22",
+    accentClass: "bg-primary/10",
+  };
+
+  const tradingAccount = {
+    title: "Trading Account",
+    subtitle: "FUTURES ACCOUNT",
+    balanceLabel: "Current Balance",
+    balance: "$124,500.00",
+    accentClass: "bg-blue-500/10",
+  };
+
+  const fromAccount = isSwapped ? tradingAccount : fundingAccount;
+  const toAccount = isSwapped ? fundingAccount : tradingAccount;
+
   return (
     <div className="min-h-screen pb-32">
       <div className="border-b border-white/5 pt-16 pb-12">
@@ -31,52 +54,52 @@ export default function TransferPage() {
         <div className="w-full max-w-xl space-y-12">
           {/* Transfer Accounts */}
           <div className="relative group/flow">
-            <div className="space-y-1">
-              <div className="p-7 border border-white/5 bg-white/2 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-1 h-full bg-primary/10"></div>
+            <div className={`space-y-1 transition-all duration-500`}>
+              <div className="p-7 border border-white/5 bg-white/2 relative overflow-hidden transition-all duration-300">
+                <div className={`absolute top-0 left-0 w-1 h-full ${fromAccount.accentClass}`}></div>
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-4">
                   Transfer From
                 </label>
                 <div className="flex justify-between items-end">
                   <div>
                     <span className="text-xl font-bold text-foreground uppercase tracking-tight block mb-1">
-                      Funding Account
+                      {fromAccount.title}
                     </span>
                     <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase">
-                      SPOT ACCOUNT
+                      {fromAccount.subtitle}
                     </span>
                   </div>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase block mb-2">
-                      Available Balance
+                      {fromAccount.balanceLabel}
                     </span>
-                    <span className="text-lg font-mono font-bold text-primary">
-                      $18,084.22
+                    <span className={`text-lg font-mono font-bold ${isSwapped ? 'text-foreground' : 'text-primary'}`}>
+                      {fromAccount.balance}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <div className="p-7 border border-white/5 bg-white/2 relative overflow-hidden pt-10">
-                <div className="absolute top-0 left-0 w-1 h-full bg-blue-500/10"></div>
+              <div className="p-7 border border-white/5 bg-white/2 relative overflow-hidden pt-10 transition-all duration-300">
+                <div className={`absolute top-0 left-0 w-1 h-full ${toAccount.accentClass}`}></div>
                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-widest block mb-4">
                   Transfer To
                 </label>
                 <div className="flex justify-between items-end">
                   <div>
                     <span className="text-xl font-bold text-foreground uppercase tracking-tight block mb-1">
-                      Trading Account
+                      {toAccount.title}
                     </span>
                     <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase">
-                      FUTURES ACCOUNT
+                      {toAccount.subtitle}
                     </span>
                   </div>
                   <div className="text-right">
                     <span className="text-xs text-muted-foreground font-bold tracking-widest uppercase block mb-2">
-                      Current Balance
+                      {toAccount.balanceLabel}
                     </span>
-                    <span className="text-lg font-mono font-bold text-foreground">
-                      $124,500.00
+                    <span className={`text-lg font-mono font-bold ${isSwapped ? 'text-primary' : 'text-foreground'}`}>
+                      {toAccount.balance}
                     </span>
                   </div>
                 </div>
@@ -85,9 +108,12 @@ export default function TransferPage() {
 
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 flex flex-col items-center">
               <div className="w-px h-6 bg-white/10"></div>
-              <button className="w-11 h-11 bg-black border border-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center group relative shadow-2xl cursor-pointer active:scale-95">
+              <button 
+                onClick={() => setIsSwapped(!isSwapped)}
+                className="w-11 h-11 bg-black border border-white/10 hover:border-primary/50 transition-all duration-300 flex items-center justify-center group relative shadow-2xl cursor-pointer active:scale-95"
+              >
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <ArrowUpDown className="w-4 h-4 text-muted-foreground group-hover:text-primary transition-all duration-500 ease-out" />
+                <ArrowUpDown className={`w-4 h-4 text-muted-foreground group-hover:text-primary transition-all duration-500 ease-out ${isSwapped ? 'rotate-180' : ''}`} />
               </button>
               <div className="w-px h-6 bg-white/10"></div>
             </div>
