@@ -12,9 +12,6 @@ export default function Footer() {
             <p className="mt-4 text-sm text-muted-foreground max-w-xs">
               High-performance crypto trading infrastructure with on-chain
               verification.
-              <br />
-              <br />
-              Babe à, anh sẽ làm được mà.
             </p>
           </div>
           <div>
